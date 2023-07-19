@@ -19,10 +19,10 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <groupId>org.keycloak.quickstarts</groupId>
   <artifactId>keycloak-user-federation-db</artifactId>
-  <version>20.0.0</version>
+  <version>22.0.0</version>
   <packaging>jar</packaging>
   <name>Keycloak Quickstart: user-storage-jpa</name>
   <description>User Storage Provider with JPA</description>
@@ -36,12 +36,15 @@
   </licenses>
 
   <properties>
-    <version.keycloak>20.0.0</version.keycloak>
-    <version.surefire.plugin>2.19.1</version.surefire.plugin>
-    <arquillian-graphene.version>2.5.4</arquillian-graphene.version>
+    <version.keycloak>22.0.0</version.keycloak>
     <version.compiler.maven.plugin>3.5.1</version.compiler.maven.plugin>
     <version.hibernate.javax.persistence>1.0.0.Final</version.hibernate.javax.persistence>
+    <arquillian-graphene.version>2.5.4</arquillian-graphene.version>
+    <version.jee.jaxb.api>2.3.1</version.jee.jaxb.api>
     <version.junit>4.12</version.junit>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -70,16 +73,17 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.hibernate.javax.persistence</groupId>
-      <artifactId>hibernate-jpa-2.1-api</artifactId>
-      <version>${version.hibernate.javax.persistence}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.jboss.arquillian.graphene</groupId>
       <artifactId>graphene-webdriver</artifactId>
       <version>${arquillian-graphene.version}</version>
       <type>pom</type>
+      <scope>test</scope>
+    </dependency>
+    <!-- Only needed for testing by arquillian (ExporterRegistrationHandler requires JEE JAXB) -->
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>${version.jee.jaxb.api}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -104,26 +108,5 @@
 
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${version.compiler.maven.plugin}</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${version.surefire.plugin}</version>
-        <configuration>
-          <systemPropertyVariables>
-            <buildDirectory>${project.build.directory}</buildDirectory>
-          </systemPropertyVariables>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 </project>

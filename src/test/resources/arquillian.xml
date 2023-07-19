@@ -10,11 +10,12 @@
 	OF ANY KIND, either express or implied. See the License for the specific
 	language governing permissions and limitations under the License. -->
 <arquillian xmlns="http://jboss.org/schema/arquillian"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  <extension qualifier="webdriver">
-    <property name="browser">chromeheadless</property>
-    <property name="chromeArguments">--window-size=1920,1080</property>
-  </extension>
+    <extension qualifier="webdriver">
+        <property name="browser">chromeheadless</property>
+        <property name="chromeArguments">--window-size=1920,1080</property>
+    </extension>
 </arquillian>

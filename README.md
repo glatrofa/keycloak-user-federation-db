@@ -21,7 +21,9 @@ runtime. Before using this example, you should probably read the User Storage SP
 System Requirements
 -------------------
 
-All you need to build this project is Java 11 (Java SDK 11) or later and Maven 3.3.3 or later.
+You need to have <span>Keycloak</span> running. It is recommended to use Keycloak 22 or later.
+
+All you need to build this project is Java 11 (Java SDK 11) or later and Maven 3.6.3 or later.
 
 Build and Deploy the Quickstart
 -------------------------------
@@ -35,7 +37,6 @@ To build the provider, run the following maven command:
 
    ````
    mvn clean install
-   docker run --rm -v ${PWD}:/maven -w /maven maven:3.8.6-openjdk-18-slim bash -c "mvn -X clean package"
    ````
 
 To install the provider, copy the target/user-storage-jpa-example.jar JAR file to the `providers` directory of the server distribution.
@@ -54,14 +55,14 @@ to the Users tab in the Admin Console and create a new user, you'll be able to s
 Integration test of the Quickstart
 ----------------------------------
 
-1. Make sure you have a Keycloak server running with the installed provider, the `quarkus.properties` file and with an administration user with username `admin` and password `admin` in the `master` realm. Your Keycloak server should be listening on `http://localhost:8180/auth`. You can archive this by running:
+1. Make sure you have a Keycloak server running with the installed provider, the `quarkus.properties` file and with an administration user with username `admin` and password `admin` in the `master` realm. Your Keycloak server should be listening on `http://localhost:8180`. You can archive this by running:
 
 ```
-./kc.sh start-dev --http-port=8180 --http-relative-path="/auth"
+./kc.sh start-dev --http-port=8180
 ```
 
 2. You need to have Chrome browser installed and updated to the latest version.
-3. Run `mvn test -Pkeycloak-remote`
+3. Run `mvn clean install -Djakarta`
 
 More Information
 ----------------
