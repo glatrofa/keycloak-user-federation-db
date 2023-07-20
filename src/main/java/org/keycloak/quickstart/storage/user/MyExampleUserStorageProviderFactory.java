@@ -26,28 +26,27 @@ import org.keycloak.storage.UserStorageProviderFactory;
  * @version $Revision: 1 $
  */
 public class MyExampleUserStorageProviderFactory implements UserStorageProviderFactory<MyUserStorageProvider> {
-    public static final String PROVIDER_ID = "example-user-storage-jpa";
+  public static final String PROVIDER_ID = "user-federation-db";
 
-    private static final Logger logger = Logger.getLogger(MyExampleUserStorageProviderFactory.class);
+  private static final Logger logger = Logger.getLogger(MyExampleUserStorageProviderFactory.class);
 
-    @Override
-    public MyUserStorageProvider create(KeycloakSession session, ComponentModel model) {
-        return new MyUserStorageProvider(session, model);
-    }
+  @Override
+  public MyUserStorageProvider create(KeycloakSession session, ComponentModel model) {
+    return new MyUserStorageProvider(session, model);
+  }
 
-    @Override
-    public String getId() {
-        return PROVIDER_ID;
-    }
+  @Override
+  public String getId() {
+    return PROVIDER_ID;
+  }
 
-    @Override
-    public String getHelpText() {
-        return "JPA Example User Storage Provider";
-    }
+  @Override
+  public String getHelpText() {
+    return "User Federation DB Provider";
+  }
 
-    @Override
-    public void close() {
-        logger.info("<<<<<< Closing factory");
-
-    }
+  @Override
+  public void close() {
+    logger.info("<<<<<< Closing factory");
+  }
 }

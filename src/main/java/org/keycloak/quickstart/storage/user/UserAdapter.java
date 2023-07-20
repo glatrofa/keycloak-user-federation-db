@@ -34,103 +34,134 @@ import java.util.stream.Stream;
  * @version $Revision: 1 $
  */
 public class UserAdapter extends AbstractUserAdapterFederatedStorage {
-    private static final Logger logger = Logger.getLogger(UserAdapter.class);
-    protected UserEntity entity;
-    protected String keycloakId;
+  private static final Logger logger = Logger.getLogger(UserAdapter.class);
+  protected UserEntity entity;
+  protected String keycloakId;
 
-    public UserAdapter(KeycloakSession session, RealmModel realm, ComponentModel model, UserEntity entity) {
-        super(session, realm, model);
-        this.entity = entity;
-        keycloakId = StorageId.keycloakId(model, entity.getId());
+  public UserAdapter(KeycloakSession session, RealmModel realm, ComponentModel model, UserEntity entity) {
+      super(session, realm, model);
+      this.entity = entity;
+      keycloakId = StorageId.keycloakId(model, entity.getId());
+  }
+
+  public String getPassword() {
+      return entity.getPassword();
+  }
+
+  public void setPassword(String password) {
+      entity.setPassword(password);
+  }
+
+  @Override
+  public String getUsername() {
+      return entity.getUsername();
+  }
+
+  @Override
+  public void setUsername(String username) {
+      entity.setUsername(username);
+
+  }
+
+  @Override
+  public void setEmail(String email) {
+      entity.setEmail(email);
+  }
+
+  @Override
+  public String getEmail() {
+      return entity.getEmail();
+  }
+
+  @Override
+  public String getId() {
+      return keycloakId;
+  }
+
+  @Override
+  public void setFirstName(String firstName) {
+    entity.setFirstName(firstName);
+  }
+
+  @Override
+  public String getFirstName() {
+    return entity.getFirstName();
+  }
+
+  @Override
+  public void setLastName(String lastName) {
+    entity.setLastName(lastName);
+  }
+
+  @Override
+  public String getLastName() {
+    return entity.getLastName();
+  }
+
+  @Override
+  public void setSingleAttribute(String name, String value) {
+    switch (name) {
+    case "apps":
+      entity.setApps(value);
+      break;
+    default:
+      super.setSingleAttribute(name, value);
+      break;
+  }
+  }
+
+  @Override
+  public void removeAttribute(String name) {
+    switch (name) {
+      case "apps":
+        entity.setApps(null);
+        break;
+      default:
+        super.removeAttribute(name);
+        break;
     }
+  }
 
-    public String getPassword() {
-        return entity.getPassword();
+  @Override
+  public void setAttribute(String name, List<String> values) {
+    switch (name) {
+      case "apps":
+        entity.setApps(values.get(0));
+        break;
+      default:
+        super.setAttribute(name, values);
+        break;
     }
+  }
 
-    public void setPassword(String password) {
-        entity.setPassword(password);
+  @Override
+  public String getFirstAttribute(String name) {
+    switch (name) {
+      case "apps":
+        return entity.getApps();
+      default:
+        return super.getFirstAttribute(name);
     }
+  }
 
-    @Override
-    public String getUsername() {
-        return entity.getUsername();
+  @Override
+  public Map<String, List<String>> getAttributes() {
+      Map<String, List<String>> attrs = super.getAttributes();
+      MultivaluedHashMap<String, String> all = new MultivaluedHashMap<>();
+      all.putAll(attrs);
+      all.add("apps", entity.getApps());
+      return all;
+  }
+
+  @Override
+  public Stream<String> getAttributeStream(String name) {
+    switch (name) {
+      case "apps":
+        List<String> apps = new LinkedList<>();
+        apps.add(entity.getApps());
+        return apps.stream();
+      default:
+        return super.getAttributeStream(name);
     }
-
-    @Override
-    public void setUsername(String username) {
-        entity.setUsername(username);
-
-    }
-
-    @Override
-    public void setEmail(String email) {
-        entity.setEmail(email);
-    }
-
-    @Override
-    public String getEmail() {
-        return entity.getEmail();
-    }
-
-    @Override
-    public String getId() {
-        return keycloakId;
-    }
-
-    @Override
-    public void setSingleAttribute(String name, String value) {
-        if (name.equals("phone")) {
-            entity.setPhone(value);
-        } else {
-            super.setSingleAttribute(name, value);
-        }
-    }
-
-    @Override
-    public void removeAttribute(String name) {
-        if (name.equals("phone")) {
-            entity.setPhone(null);
-        } else {
-            super.removeAttribute(name);
-        }
-    }
-
-    @Override
-    public void setAttribute(String name, List<String> values) {
-        if (name.equals("phone")) {
-            entity.setPhone(values.get(0));
-        } else {
-            super.setAttribute(name, values);
-        }
-    }
-
-    @Override
-    public String getFirstAttribute(String name) {
-        if (name.equals("phone")) {
-            return entity.getPhone();
-        } else {
-            return super.getFirstAttribute(name);
-        }
-    }
-
-    @Override
-    public Map<String, List<String>> getAttributes() {
-        Map<String, List<String>> attrs = super.getAttributes();
-        MultivaluedHashMap<String, String> all = new MultivaluedHashMap<>();
-        all.putAll(attrs);
-        all.add("phone", entity.getPhone());
-        return all;
-    }
-
-    @Override
-    public Stream<String> getAttributeStream(String name) {
-        if (name.equals("phone")) {
-            List<String> phone = new LinkedList<>();
-            phone.add(entity.getPhone());
-            return phone.stream();
-        } else {
-            return super.getAttributeStream(name);
-        }
-    }
+  }
 }
