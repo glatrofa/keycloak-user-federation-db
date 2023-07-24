@@ -49,7 +49,7 @@ import java.util.stream.Stream;
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
  * @version $Revision: 1 $
  */
-public class MyUserStorageProvider implements UserStorageProvider,
+public class UserFederationStorageProvider implements UserStorageProvider,
         UserLookupProvider,
         UserRegistrationProvider,
         UserQueryProvider,
@@ -57,7 +57,7 @@ public class MyUserStorageProvider implements UserStorageProvider,
         CredentialInputValidator,
         OnUserCache
 {
-  private static final Logger logger = Logger.getLogger(MyUserStorageProvider.class);
+  private static final Logger logger = Logger.getLogger(UserFederationStorageProvider.class);
   public static final String PASSWORD_CACHE_KEY = UserAdapter.class.getName() + ".password";
 
   protected EntityManager em;
@@ -65,7 +65,7 @@ public class MyUserStorageProvider implements UserStorageProvider,
   protected ComponentModel model;
   protected KeycloakSession session;
 
-  MyUserStorageProvider(KeycloakSession session, ComponentModel model) {
+  UserFederationStorageProvider(KeycloakSession session, ComponentModel model) {
       this.session = session;
       this.model = model;
       em = session.getProvider(JpaConnectionProvider.class, "user-store").getEntityManager();

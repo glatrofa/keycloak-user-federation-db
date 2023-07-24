@@ -31,7 +31,7 @@
 // import org.keycloak.representations.idm.UserRepresentation;
 // import org.keycloak.test.FluentTestsHelper;
 // import org.keycloak.test.page.LoginPage;
-// import org.keycloak.quickstart.storage.user.MyExampleUserStorageProviderFactory;
+// import org.keycloak.quickstart.storage.user.UserFederationStorageProviderFactory;
 // import org.openqa.selenium.WebDriver;
 
 // import java.util.concurrent.TimeUnit;
@@ -93,7 +93,7 @@
 //         final String password = "sgc-passwd";
 
 //         testsHelper.createTestUser(username, password);
-//         // The MyUserStorageProvider doesn't implement all methods, e.g. searchForUserStream using attributes is missing, therefore we
+//         // The UserFederationStorageProvider doesn't implement all methods, e.g. searchForUserStream using attributes is missing, therefore we
 //         // need to use a different interface, in this case using "search" attribute and pagination
 //         UserRepresentation fetchedUser = testsHelper.getTestRealmResource().users().search(username, 0, 1).get(0);
 
@@ -106,9 +106,9 @@
 
 //     private String addProvider() {
 //         ComponentRepresentation provider = new ComponentRepresentation();
-//         provider.setProviderId(MyExampleUserStorageProviderFactory.PROVIDER_ID);
+//         provider.setProviderId(UserFederationStorageProviderFactory.PROVIDER_ID);
 //         provider.setProviderType(PROVIDER_TYPE);
-//         provider.setName(MyExampleUserStorageProviderFactory.PROVIDER_ID);
+//         provider.setName(UserFederationStorageProviderFactory.PROVIDER_ID);
 
 //         Response response = testsHelper.getTestRealmResource().components().add(provider);
 //         assertEquals(201, response.getStatus());

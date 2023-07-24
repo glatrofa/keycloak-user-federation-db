@@ -22,7 +22,7 @@
 
   <groupId>org.keycloak.quickstarts</groupId>
   <artifactId>keycloak-user-federation-db</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>Keycloak Quickstart: user-storage-jpa</name>
   <description>User Storage Provider with JPA</description>
@@ -36,7 +36,7 @@
   </licenses>
 
   <properties>
-    <version.keycloak>22.0.0</version.keycloak>
+    <version.keycloak>22.0.1</version.keycloak>
     <version.compiler.maven.plugin>3.5.1</version.compiler.maven.plugin>
     <version.hibernate.javax.persistence>1.0.0.Final</version.hibernate.javax.persistence>
     <arquillian-graphene.version>2.5.4</arquillian-graphene.version>
